@@ -20,6 +20,7 @@ TeamsModel.init({
   sequelize,
   tableName: 'teams',
   timestamps: false,
+  underscored: true,
 });
 
 export default TeamsModel;
