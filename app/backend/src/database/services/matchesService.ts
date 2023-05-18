@@ -9,7 +9,7 @@ class MatchesService {
     this.model = MatchesModel;
   }
 
-  async getAllMatches(): Promise<Matches[]> {
+  async getAllMatches(inProgress: unknown): Promise<Matches[]> {
     const allMatches = await this.model.findAll({ include: [{
       model: TeamsModel,
       as: 'homeTeam',
@@ -19,6 +19,12 @@ class MatchesService {
       as: 'awayTeam',
       attributes: ['teamName'],
     }] });
+    if (inProgress === 'true') {
+      return allMatches.filter((match) => match.inProgress === true);
+    }
+    if (inProgress === 'false') {
+      return allMatches.filter((match) => match.inProgress === false);
+    }
     return allMatches;
   }
 }
