@@ -9,6 +9,7 @@ class LoginController {
   constructor(loginService = new LoginService()) {
     this.loginService = loginService;
     this.loginFunction = this.loginFunction.bind(this);
+    this.getRole = this.getRole.bind(this);
   }
 
   loginFunction = async (req: Request, res: Response) => {
@@ -21,6 +22,14 @@ class LoginController {
 
     const token = generateToken(email);
     return res.status(200).json({ token });
+  };
+
+  getRole = async (req: Request, res: Response) => {
+    const { email } = res.locals.validToken;
+    const user = await this.loginService.getRole(email);
+    if (!user) return res.status(401).json({ message: 'Invalid email' });
+    const { role } = user;
+    return res.status(200).json({ role });
   };
 }
 

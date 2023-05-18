@@ -1,4 +1,4 @@
-import { Secret, sign, SignOptions } from 'jsonwebtoken';
+import { Secret, sign, SignOptions, verify } from 'jsonwebtoken';
 
 const secretKey: Secret = process.env.JWT_SECRET as string;
 
@@ -12,4 +12,10 @@ const generateToken = (email: string): string => {
   return token;
 };
 
+const validateToken = (token: string) => {
+  const isValid = verify(token, secretKey);
+  return isValid;
+};
+
 export default generateToken;
+export { validateToken };
