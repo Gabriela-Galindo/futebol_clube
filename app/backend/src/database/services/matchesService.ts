@@ -32,6 +32,11 @@ class MatchesService {
     const match = await this.model.findByPk(id);
     await match?.update({ inProgress: false });
   }
+
+  async updateMatches(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void> {
+    const match = await this.model.findByPk(id);
+    await match?.update({ homeTeamGoals, awayTeamGoals });
+  }
 }
 
 export default MatchesService;
