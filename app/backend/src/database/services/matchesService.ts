@@ -27,6 +27,11 @@ class MatchesService {
     }
     return allMatches;
   }
+
+  async finishMatches(id: number): Promise<void> {
+    const match = await this.model.findByPk(id);
+    await match?.update({ inProgress: false });
+  }
 }
 
 export default MatchesService;
