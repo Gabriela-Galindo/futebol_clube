@@ -37,6 +37,23 @@ class MatchesService {
     const match = await this.model.findByPk(id);
     await match?.update({ homeTeamGoals, awayTeamGoals });
   }
+
+  async insertMatch(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ):
+    Promise<Matches> {
+    const newMatch = await this.model.create({
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+    return newMatch;
+  }
 }
 
 export default MatchesService;

@@ -9,6 +9,7 @@ class MatchesController {
     this.getAllMatches = this.getAllMatches.bind(this);
     this.finishMatches = this.finishMatches.bind(this);
     this.updateMatches = this.updateMatches.bind(this);
+    this.insertMatch = this.insertMatch.bind(this);
   }
 
   getAllMatches = async (req: Request, res: Response) => {
@@ -28,6 +29,22 @@ class MatchesController {
     const { homeTeamGoals, awayTeamGoals } = req.body;
     await this.matchesService.updateMatches(Number(id), homeTeamGoals, awayTeamGoals);
     return res.status(200).json({ message: 'Match updated' });
+  };
+
+  insertMatch = async (req: Request, res: Response) => {
+    const {
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+    } = req.body;
+    const newMatch = await this.matchesService.insertMatch(
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
+    );
+    return res.status(201).json(newMatch);
   };
 }
 

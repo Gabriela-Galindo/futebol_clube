@@ -16,5 +16,10 @@ matchesRouter.patch(
   tokenValidation,
   (req: Request, res: Response) => matchesController.finishMatches(req, res),
 );
+matchesRouter.post(
+  '/',
+  tokenValidation,
+  (req: Request, res: Response) => matchesController.insertMatch(req, res),
+);
 
 export default matchesRouter;
